@@ -1,8 +1,118 @@
-@import url("https://fonts.googleapis.com/css2?family=Raleway:wght@500&display=swap");
+/* ─────────────  Design tokens  ───────────── */
+:root {
+  /* solder-mask greens */
+  --mask: #06110d;
+  --mask-2: #0a1a14;
+  --mask-3: #102a21;
+  /* copper + silkscreen + signal */
+  --copper: #e2a362;
+  --copper-hi: #ffcf99;
+  --copper-rgb: 226, 163, 98;
+  --silk: #e9f0e8;
+  --silk-2: #a9bdb0;
+  --silk-3: #7a9285;
+  --mint: #74f0b5;
+  --alert: #ff9a76;
+
+  --radius: 18px;
+  --font-display: "Bricolage Grotesque Variable", "Segoe UI", system-ui, sans-serif;
+  --font-serif: "Instrument Serif", Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --ease: cubic-bezier(0.2, 0.75, 0.2, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 84px;
+  -webkit-text-size-adjust: 100%;
+}
+
 body {
   margin: 0;
-  font-family: "Raleway", serif !important;
+  background: var(--mask);
+  color: var(--silk);
+  font-family: var(--font-display);
+  font-size: 1rem;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-image: linear-gradient(to left, rgb(27 20 41), rgb(20 15 35));
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, p, figure, dl, dd { margin: 0; }
+img, svg { max-width: 100%; }
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+
+::selection {
+  background: rgba(var(--copper-rgb), 0.35);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--copper-hi);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* thin copper scrollbar */
+html { scrollbar-color: rgba(var(--copper-rgb), 0.5) var(--mask); scrollbar-width: thin; }
+::-webkit-scrollbar { width: 10px; }
+::-webkit-scrollbar-track { background: var(--mask); }
+::-webkit-scrollbar-thumb { background: rgba(var(--copper-rgb), 0.4); border-radius: 10px; border: 2px solid var(--mask); }
+
+/* page furniture */
+.trace-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(1100px 700px at 85% -10%, rgba(18, 70, 50, 0.55), transparent 60%),
+    radial-gradient(900px 600px at -5% 105%, rgba(150, 90, 30, 0.14), transparent 60%),
+    radial-gradient(ellipse at center, transparent 55%, rgba(0, 0, 0, 0.45) 100%);
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+  top: 8px;
+  z-index: 300;
+  background: var(--copper);
+  color: #1b1006;
+  padding: 8px 14px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+.skip:focus { left: 12px; }
+
+main, .footer { position: relative; z-index: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+  /* things that only appear *because* of an animation need an explicit resting state */
+  .name-letter { opacity: 1 !important; transform: none !important; }
+  .pet-wifi { opacity: 0.6 !important; }
+  .preloader { display: none !important; }
+  .walker { display: none !important; }
+  .scr-live { display: none !important; }
+  .scr--live .scr-final { visibility: visible !important; }
 }
